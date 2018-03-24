@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Quiz_basicSch</string>
+    <string name="question">
+    Sally’s breakfast this morning included one glass of orange juice (from concentrate), one slice of toast, a small bowl of bran cereal and a grapefruit. What “whole food” did Sally eat for breakfast?
+    </string>
+    <string name="option_1">a. orange juice</string>
+    <string name="option_2">b. toast</string>
+    <string name="option_3">c. bran cereal</string>
+    <string name="option_4">d. grapefruit</string>
+</resources>

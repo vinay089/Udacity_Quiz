@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="quiz.com.quiz_basicsch.MainActivity"
+    android:background="@color/primary_background_color">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="15dp"
+        android:textColor="#fff"
+        android:padding="7dp"
+        android:background="@drawable/roundedcorner_question"
+        android:hint="Nick Name"
+        android:id="@+id/et_name">
+
+    </EditText>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/next"
+        android:backgroundTint="@color/basic_white"
+        android:id="@+id/tv_next"
+        android:layout_below="@+id/et_name"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="15dp"
+        android:layout_alignEnd="@+id/et_name"/>
+</RelativeLayout>

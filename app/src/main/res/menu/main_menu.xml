@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--<item
+        android:id="@+id/action_right_answer"
+        android:title="History"
+        app:showAsAction="never" />-->
+
+    <item
+        android:id="@+id/action_restart"
+        android:orderInCategory="100"
+        android:title="Restart"
+        app:showAsAction="never"
+        android:icon="@drawable/icon"/>
+
+    <item
+        android:id="@+id/action_new_user"
+        android:orderInCategory="100"
+        android:title="New User"
+        app:showAsAction="never"
+        android:icon="@drawable/user_name"/>
+</menu>

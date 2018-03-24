@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="secondary_background_color">#50576A</color>
+    <color name="primary_background_color">#3C445B</color>
+    <color name="basic_white">#d8daff</color>
+
+    <drawable name="pressed_color">#7ec0ee</drawable> <!--custom color for pressed state -->
+    <drawable name="normal_color">#00FFFFFF</drawable> <!--transperent color for normal state -->
+</resources>
