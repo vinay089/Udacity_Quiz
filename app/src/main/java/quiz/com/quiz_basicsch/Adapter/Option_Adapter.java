@@ -27,7 +27,7 @@ public class Option_Adapter extends BaseAdapter {
     List<String> list;
     private int selectedPosition = -1;
 
-    Option_Adapter(Context _context, List<String> list){
+    public Option_Adapter(Context _context, List<String> list){
         this.list = list;
         context = new WeakReference<Context> (_context);
     }

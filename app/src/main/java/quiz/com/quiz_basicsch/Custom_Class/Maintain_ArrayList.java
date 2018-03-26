@@ -12,7 +12,7 @@ public class Maintain_ArrayList {
 
     static Maintain_ArrayList maintain_arrayList;
 
-    static ArrayList<Question_Model> allQuestions_ArrayList;
+    public static ArrayList<Question_Model> allQuestions_ArrayList;
     static ArrayList<Question_Model> user_Questions_ArrayList;
 
     /*private static Maintain_ArrayList getInstance(){

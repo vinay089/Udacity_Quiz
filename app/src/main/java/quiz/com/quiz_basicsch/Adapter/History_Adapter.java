@@ -22,7 +22,7 @@ public class History_Adapter extends BaseAdapter {
 
     ArrayList<Question_Model> list;
     WeakReference<Context> _context;
-    History_Adapter(Context context, ArrayList<Question_Model> list){
+    public History_Adapter(Context context, ArrayList<Question_Model> list){
         _context = new WeakReference<Context>(context);
         this.list = list;
     }

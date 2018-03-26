@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Quiz_basicSch.iml" filepath="$PROJECT_DIR$/Quiz_basicSch.iml" />
+      <module fileurl="file://D:\Vinay_android\Quiz_android\Udacity_Quiz\Quiz_basicSch.iml" filepath="D:\Vinay_android\Quiz_android\Udacity_Quiz\Quiz_basicSch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Udacity_Quiz.iml" filepath="$PROJECT_DIR$/Udacity_Quiz.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

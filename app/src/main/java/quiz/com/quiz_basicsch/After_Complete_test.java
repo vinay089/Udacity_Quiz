@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.plattysoft.leonids.ParticleSystem;
+
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -23,6 +25,15 @@ public class After_Complete_test extends AppCompatActivity {
     @BindView(R.id.tv_view_history)
     TextView viewHistory;
 
+    @BindView(R.id.id_view)
+    View el;
+
+    @BindView(R.id.tv_correct_attempts)
+    TextView Tv_Correct_Attempts;
+
+    @BindView(R.id.tv_wrong_attempts)
+    TextView Tv_wrong_attempts;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +44,47 @@ public class After_Complete_test extends AppCompatActivity {
         String name = getSharedPreferences("Prefrences", MODE_PRIVATE).getString("name", "");
 
         getSupportActionBar().setTitle("Hey, "+name);
+
+
+        new Thread(){
+
+            @Override
+            public void run(){
+
+                final int correct_answer = getList();
+                final int wrong_attempts = 5 - correct_answer;
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Tv_Correct_Attempts.setText(""+correct_answer);
+                        Tv_wrong_attempts.setText(""+wrong_attempts);
+                    }
+                });
+            }
+        }.start();
+
+
+        new ParticleSystem(this, 80, R.drawable.ripple, 5000)
+                .setSpeedModuleAndAngleRange(0f, 0.3f, 0, 0)
+                .setRotationSpeed(144)
+                .setAcceleration(0.00005f, 90)
+                .emit(el, 8);
+
+        new ParticleSystem(this, 80, R.drawable.rippleredred, 5000)
+                .setSpeedModuleAndAngleRange(0f, 0.3f, 0, 0)
+                .setRotationSpeed(144)
+                .setAcceleration(0.00005f, 90)
+                .emit(el, 8);
+
+        new ParticleSystem(this, 80, R.drawable.rippleorange, 5000)
+                .setSpeedModuleAndAngleRange(0f, 0.3f, 0, 0)
+                .setRotationSpeed(144)
+                .setAcceleration(0.00005f, 90)
+                .emit(el, 8);
+
+
 
     }
 
@@ -82,7 +134,45 @@ public class After_Complete_test extends AppCompatActivity {
 
     }
 
+    private int getList() {
+        ArrayList<Integer> id_list = MainQuestionActivity.user_question_id;
+        ArrayList<Integer> user_ans = MainQuestionActivity.user_answers;
 
+        int correct_count = 0;
+
+        ArrayList<Question_Model> final_list = new ArrayList<>();
+
+        String answer = "";
+        for (int i = 0; i < id_list.size(); i++) {
+
+            Question_Model question_model = Maintain_ArrayList.allQuestions_ArrayList.get(id_list.get(i));
+
+            switch (user_ans.get(i)) {
+                case 0:
+                    answer = question_model.getOption1();
+                    break;
+
+                case 1:
+                    answer = question_model.getOption2();
+                    break;
+
+                case 2:
+                    answer = question_model.getOption3();
+                    break;
+
+                case 3:
+                    answer = question_model.getOption4();
+                    break;
+
+            }
+            question_model.setUser_answer(answer);
+
+            if(question_model.getAnswer().trim().equalsIgnoreCase(answer.trim()))
+                correct_count++;
+        }
+        return correct_count;
+
+    }
     Question_Listener question_listener = new Question_Listener() {
         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         @Override

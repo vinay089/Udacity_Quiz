@@ -105,7 +105,7 @@ public class MainQuestionActivity extends AppCompatActivity {
         user_answers.add(pos);
         Option_Model.getInstance().setSelectedPosition(-1);
 
-        if(user_question_id.size() >= 5){
+        if(user_question_id.size() == 5){
 
             Intent intent = new Intent(this, After_Complete_test.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
