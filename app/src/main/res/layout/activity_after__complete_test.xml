@@ -42,8 +42,7 @@
                 android:text="5"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:textColor="@color/basic_white"
-                android:layout_alignParentRight="true"
-                android:id="@+id/tv_correct_attempts"/>
+                android:layout_alignParentRight="true" />
 
         </RelativeLayout>
 
@@ -108,7 +107,8 @@
                 android:text="5"
                 android:textSize="10sp"
                 android:textColor="@color/basic_white"
-                android:layout_alignParentRight="true"/>
+                android:layout_alignParentRight="true"
+                android:id="@+id/tv_correct_attempts" />
 
         </RelativeLayout>
 
@@ -176,5 +176,17 @@
         android:padding="7dp"
         android:layout_centerHorizontal="true"
         android:textColor="@color/basic_white"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ll_score"
+        android:fontFamily="serif"
+        android:layout_marginBottom="25dp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:textColor="@color/basic_white"
+        android:id="@+id/tv_message"/>
 
 </RelativeLayout>

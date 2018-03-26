@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -25,6 +27,22 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.et_name)
     EditText name_edittext;
 
+    @BindView(R.id.tv_quote_name)
+    TextView Tv_quote_name;
+
+    @BindView(R.id.tv_quote_author)
+    TextView Tv_quote_author;
+
+
+    String[]  quotes = {"We cannot solve our problems with the same thinking we used when we created them.",
+            "Be grateful for what you have and stop complaining - it bores everybody else, does you no good, and doesn't solve any problems." ,
+    "Intellectuals solve problems, geniuses prevent them.",
+            "Chess helps you to concentrate, improve your logic. It teaches you to play by the rules and take responsibility for your actions, how to problem solve in an uncertain environment." ,
+                    "Engineers like to solve problems. If there are no problems handily available, they will create their own problems."};
+
+    String[] quoter={"- Albert Einstein","- Zig Ziglar", "- Albert Einstein", "- Garry Kasparov", "- Scott Adams"};
+
+    int count=0;
     private boolean isNameEmpty(){
 
         if(name_edittext.getText().toString().trim().isEmpty())
@@ -60,7 +78,26 @@ public class MainActivity extends AppCompatActivity {
             new LoadQuestionFromFile(this, question_listener);
         }
 
+        final Handler handler = new Handler();
+        final int delay = 4000; //milliseconds
+
+        handler.postDelayed(new Runnable(){
+            public void run(){
+                //do something
+                Tv_quote_author.setText(quoter[count]);
+                Tv_quote_name.setText(quotes[count]);
+
+                count++;
+                if(count == 5){
+                    count = 0;
+                }
+
+                handler.postDelayed(this, delay);
+            }
+        }, delay);
+
     }
+
 
     @OnClick(R.id.tv_next)
     void OnClick(View view){

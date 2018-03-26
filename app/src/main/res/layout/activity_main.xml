@@ -7,6 +7,27 @@
     tools:context="quiz.com.quiz_basicsch.MainActivity"
     android:background="@color/primary_background_color">
 
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_quote_name"
+        android:textColor="@color/basic_white"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:padding="15dp"
+        android:layout_marginTop="72dp"
+        android:text="Intelligence is the ability to adapt to change."/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_quote_name"
+        android:layout_alignParentRight="true"
+        android:id="@+id/tv_quote_author"
+        android:padding="15dp"
+        android:text="- Stephen Hawking"
+        android:textColor="@color/basic_white"/>
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

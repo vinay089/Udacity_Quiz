@@ -34,6 +34,9 @@ public class After_Complete_test extends AppCompatActivity {
     @BindView(R.id.tv_wrong_attempts)
     TextView Tv_wrong_attempts;
 
+    @BindView(R.id.tv_message)
+    TextView Tv_message;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,15 +54,41 @@ public class After_Complete_test extends AppCompatActivity {
             @Override
             public void run(){
 
-                final int correct_answer = getList();
-                final int wrong_attempts = 5 - correct_answer;
+                final int correct_attempts = getCorrectQuestionCount();
+                final int wrong_attempts = 5 - correct_attempts;
 
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
 
-                        Tv_Correct_Attempts.setText(""+correct_answer);
+                        Tv_Correct_Attempts.setText(""+correct_attempts);
                         Tv_wrong_attempts.setText(""+wrong_attempts);
+
+                        switch (correct_attempts){
+                            case 0:
+                                Tv_message.setText("You may get better after re-attempt");
+                                break;
+
+                            case 1:
+                                Tv_message.setText("You may get better after re-attempt");
+                                break;
+
+                            case 2:
+                                Tv_message.setText("You may get better after re-attempt");
+                                break;
+
+                            case 3:
+                                Tv_message.setText("Good");
+                                break;
+
+                            case 4:
+                                Tv_message.setText("Very Good");
+                                break;
+
+                            case 5:
+                                Tv_message.setText("Excellent");
+                                break;
+                        }
                     }
                 });
             }
@@ -134,7 +163,7 @@ public class After_Complete_test extends AppCompatActivity {
 
     }
 
-    private int getList() {
+    private int getCorrectQuestionCount() {
         ArrayList<Integer> id_list = MainQuestionActivity.user_question_id;
         ArrayList<Integer> user_ans = MainQuestionActivity.user_answers;
 
