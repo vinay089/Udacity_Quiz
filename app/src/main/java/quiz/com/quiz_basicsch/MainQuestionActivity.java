@@ -1,16 +1,21 @@
 package quiz.com.quiz_basicsch;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -143,15 +148,16 @@ public class MainQuestionActivity extends AppCompatActivity {
 
     private void loadQuestionToShow(){
 
+        final int randomno = showRandomInteger(1, 20, new Random());
+
+        if(user_question_id.contains(randomno-1)){
+            loadQuestionToShow();
+            return;
+        }
+
         new Thread(){
             @Override
             public void run(){
-                int randomno = showRandomInteger(1, 20, new Random());
-
-                if(user_question_id.contains(randomno)){
-                    loadQuestionToShow();
-                    return;
-                }
 
                 Question_Model question_model = allQuestionList.get(randomno-1);
 
@@ -168,7 +174,6 @@ public class MainQuestionActivity extends AppCompatActivity {
                 list.add(option_2);
                 list.add(option_3);
                 list.add(option_4);
-
 
                 runOnUiThread(new Runnable() {
                     @Override
@@ -189,8 +194,7 @@ public class MainQuestionActivity extends AppCompatActivity {
 
                                 timeDuraton = (millisUntilFinished)/1000;
                                 long seconds = timeDuraton %60;
-                                int barVal= (100) - ((int)(seconds/60*100)+(int)(seconds%60));
-
+                                long barVal= (10 * seconds)/3;
                                 progressBarCircular.setProgress((int) (barVal));
 
                             }
@@ -272,7 +276,8 @@ public class MainQuestionActivity extends AppCompatActivity {
         @Override
         public void timeComplete() {
 //            loadQuestionToShow();
-            skipQuestionOnTomeCompleteOtButton();
+//            skipQuestionOnTomeCompleteOtButton();
+            buildDialog();
         }
 
         @Override
@@ -294,4 +299,43 @@ public class MainQuestionActivity extends AppCompatActivity {
 
         loadQuestionToShow();
     }
+
+    private void buildDialog(){
+
+        final Animation anim = AnimationUtils.loadAnimation(this, R.anim.connected);
+
+        final Dialog dialog = new Dialog(MainQuestionActivity.this);
+        // Include dialog.xml file
+        dialog.setContentView(R.layout.dialog_layout);
+
+        dialog.setCancelable(false);
+        dialog.show();
+
+        final ImageView IV_image_tuimesUp = dialog.findViewById(R.id.iv_timeup_image);
+
+        final Handler handler = new Handler();
+        final int delay = 2000; //milliseconds
+
+        handler.postDelayed(new Runnable(){
+            public void run(){
+                //do something
+                IV_image_tuimesUp.startAnimation(anim);
+
+                handler.postDelayed(this, delay);
+            }
+        }, delay);
+
+        TextView tv_pk = dialog.findViewById(R.id.tv_ok);
+        tv_pk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                handler.removeCallbacksAndMessages(null);
+                dialog.dismiss();
+                loadQuestionToShow();
+
+            }
+        });
+    }
+
 }
