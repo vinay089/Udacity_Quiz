@@ -38,7 +38,8 @@
         android:padding="7dp"
         android:background="@drawable/roundedcorner_question"
         android:hint="Nick Name"
-        android:id="@+id/et_name">
+        android:id="@+id/et_name"
+        android:drawablePadding="7dp">
 
     </EditText>
 
