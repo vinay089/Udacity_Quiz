@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,12 +21,14 @@ import java.util.List;
 import java.util.Random;
 
 import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemLongClick;
 import butterknife.Unbinder;
 import quiz.com.quiz_basicsch.Adapter.Option_Adapter;
 import quiz.com.quiz_basicsch.Custom_Class.Maintain_ArrayList;
+import quiz.com.quiz_basicsch.Interfaces.Time_Complete_Listener;
 import quiz.com.quiz_basicsch.Model.Option_Model;
 import quiz.com.quiz_basicsch.Model.Question_Model;
 
@@ -33,8 +37,11 @@ public class MainQuestionActivity extends AppCompatActivity {
     @BindView(R.id.listview)
     ListView Option_Lv;
 
-    @BindView(R.id.tv_question)
-    TextView question_tv;
+    @BindViews({R.id.tv_question, R.id.tv_skip_question})
+    List<TextView> question_tv;
+
+    @BindView(R.id.tv_timer_question)
+    ProgressBar progressBarCircular;
 
     Unbinder unbinder;
 
@@ -42,7 +49,8 @@ public class MainQuestionActivity extends AppCompatActivity {
     ArrayList<Question_Model> allQuestionList;
 
     static ArrayList<Integer> user_question_id = new ArrayList<>();
-    static ArrayList<Integer> user_answers = new ArrayList<>();
+    CountDownTimer countDownTimer;
+    long timeDuraton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,37 +83,54 @@ public class MainQuestionActivity extends AppCompatActivity {
 
         return false;
     }
-    /*@OnItemClick(R.id.listview)
-    void onItemClick(int position) {
-        Toast.makeText(this, "You clicked: " *//*+ adapter.getItem(position)*//*, Toast.LENGTH_SHORT).show();
-    }
-
-
-    @OnItemClick(R.id.listview)
-    void onItemClicked(int i) {
-
-        Toast.makeText(this, "on item click", Toast.LENGTH_SHORT).show();
-        istView.setItemChecked(i, true);
-      ///  listView.setBackgroundResource(R.drawable.clicked_item_background);
-        customAdapter.notifyDataSetChanged();
-
-    }*/
 
     @OnClick(R.id.tv_next_question)
-    void onClick(View view){
+    void onClick(){
 
-
-
+        long duration = 30 - timeDuraton;
+        countDownTimer.cancel();
+        progressBarCircular.setProgress(0);
         int pos = Option_Model.getInstance().getSelectedPosition();
 
         if(pos == -1){
             Toast.makeText(MainQuestionActivity.this, "Select an Option.", Toast.LENGTH_LONG).show();
             return;
         }
-        user_answers.add(pos);
+
+        int ques = user_question_id.get(user_question_id.size() - 1);
+
+        Question_Model question_model = allQuestionList.get(ques);
+
+        String answer = "";
+        switch (pos){
+            case 0:
+                answer = question_model.getOption1();
+                break;
+
+            case 1:
+                answer = question_model.getOption2();
+                break;
+
+            case 2:
+                answer = question_model.getOption3();
+                break;
+
+            case 3:
+                answer = question_model.getOption4();
+                break;
+
+        }
+        question_model.setUser_answer(answer);
+        question_model.setTimeTaken((int) duration);
+        Log.d("time_quest"+ques, ""+duration);
+        allQuestionList.set(pos, question_model);
+
+//        user_answers.add(pos);
         Option_Model.getInstance().setSelectedPosition(-1);
 
         if(user_question_id.size() == 5){
+
+            Maintain_ArrayList.allQuestions_ArrayList = allQuestionList;
 
             Intent intent = new Intent(this, After_Complete_test.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -148,15 +173,50 @@ public class MainQuestionActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        question_tv.setText(Question);
+
+                        question_tv.get(0).setText(Question);
                         customAdapter = new Option_Adapter(MainQuestionActivity.this,
                                 list);
                         Option_Lv.setAdapter(customAdapter);
+
+                        countDownTimer = new CountDownTimer(30*1000, 1000) {
+
+                            public void onTick(long millisUntilFinished) {
+
+                                /*timeDuraton = (millisUntilFinished)/1000;
+                                long sec = timeDuraton %60;
+                                question_tv.get(1).setText(String.format("%02d", sec));*/
+
+                                timeDuraton = (millisUntilFinished)/1000;
+                                long seconds = timeDuraton %60;
+                                int barVal= (100) - ((int)(seconds/60*100)+(int)(seconds%60));
+
+                                progressBarCircular.setProgress((int) (barVal));
+
+                            }
+
+                            public void onFinish() {
+                                /*Option_Lv.setEnabled(false);
+                                question_tv.get(1).setText("Time Out!");
+                                time_complete_listener.timeComplete();*/
+                                time_complete_listener.timeComplete();
+
+                            }
+
+                        };
+
+                        countDownTimer.start();
                     }
                 });
 
             }
         }.start();
+    }
+
+    @OnClick(R.id.tv_skip_question)
+    void onSkipClick(View v){
+
+        skipQuestionOnTomeCompleteOtButton();
     }
 
     private static int showRandomInteger(int aStart, int aEnd, Random aRandom){
@@ -196,7 +256,7 @@ public class MainQuestionActivity extends AppCompatActivity {
 
             case R.id.action_restart :
 
-                user_answers.clear();
+//                user_answers.clear();
                 user_question_id.clear();
 
                 Maintain_ArrayList.allQuestions_ArrayList.clear();
@@ -204,17 +264,34 @@ public class MainQuestionActivity extends AppCompatActivity {
                 finish();
                 break;
 
-            /*case R.id.action_right_answer:
-
-                Intent intent = new Intent(this, Show_answers.class);
-                intent.putExtra("clicked" , "1");
-                startActivity(intent);
-
-                break;
-*/
         }
         return true;
     }
 
+    Time_Complete_Listener time_complete_listener = new Time_Complete_Listener() {
+        @Override
+        public void timeComplete() {
+//            loadQuestionToShow();
+            skipQuestionOnTomeCompleteOtButton();
+        }
 
+        @Override
+        public void onError() {
+
+        }
+    };
+
+    private void skipQuestionOnTomeCompleteOtButton(){
+
+        countDownTimer.cancel();
+        int ques = user_question_id.get(user_question_id.size() - 1);
+
+        Question_Model question_model = allQuestionList.get(ques);
+        question_model.setUser_answer("n u l l");
+        question_model.setTimeTaken(-1);
+
+        allQuestionList.set(ques, question_model);
+
+        loadQuestionToShow();
+    }
 }

@@ -15,7 +15,6 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="56dp"
         android:background="@drawable/roundedcorner_question"
         android:backgroundTint="#50576A"
         android:gravity="center"
@@ -25,12 +24,7 @@
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:text="@string/question"
         android:fontFamily="sans-serif-smallcaps"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.17000002" />
+        android:layout_below="@+id/tv_timer_question"/>
 
     <ListView
         android:id="@+id/listview"
@@ -64,5 +58,46 @@
         android:layout_below="@+id/listview"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"/>
+
+   <!-- <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:text="vinya"
+        android:textColor="@color/basic_white"
+        android:layout_marginTop="25dp"
+        android:id="@+id/tv_timer_question"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="16dp"/>-->
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="0"
+        android:progressDrawable="@drawable/circular"
+        android:secondaryProgress="100"
+        android:layout_centerHorizontal="true"
+        android:text="vinay"
+        android:textColor="@color/basic_white"
+        android:layout_marginTop="5dp"
+        android:id="@+id/tv_timer_question"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:text="skip question"
+        android:textColor="@color/basic_white"
+        android:layout_marginTop="25dp"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+        android:layout_marginRight="16dp"
+        android:id="@+id/tv_skip_question"/>
 
 </RelativeLayout>

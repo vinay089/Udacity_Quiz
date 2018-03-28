@@ -12,6 +12,7 @@ public class Question_Model {
     String option3;
     String option4;
     String answer;
+    int timeTaken;
 
     public String getUser_answer() {
         return user_answer;
@@ -77,5 +78,13 @@ public class Question_Model {
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+
+    public int getTimeTaken() {
+        return timeTaken;
+    }
+
+    public void setTimeTaken(int timeTaken) {
+        this.timeTaken = timeTaken;
     }
 }

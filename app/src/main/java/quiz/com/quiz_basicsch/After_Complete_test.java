@@ -130,7 +130,7 @@ public class After_Complete_test extends AppCompatActivity {
             case R.id.tv_restart_test:
                 Maintain_ArrayList.allQuestions_ArrayList.clear();
 
-                MainQuestionActivity.user_answers.clear();
+//                MainQuestionActivity.user_answers.clear();
                 MainQuestionActivity.user_question_id.clear();
 
 //                new LoadQuestionFromFile(this, question_listener);
@@ -144,15 +144,13 @@ public class After_Complete_test extends AppCompatActivity {
 
                 Maintain_ArrayList.allQuestions_ArrayList.clear();
 
-                MainQuestionActivity.user_answers.clear();
+//                MainQuestionActivity.user_answers.clear();
                 MainQuestionActivity.user_question_id.clear();
 
                 SharedPreferences.Editor edit = getSharedPreferences("Prefrences", MODE_PRIVATE).edit();
                 edit.putString("name", null);
 //        edit.clear();
                 edit.commit();
-                MainQuestionActivity.user_answers.clear();
-                MainQuestionActivity.user_question_id.clear();
 
                 intent = new Intent(this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -165,11 +163,21 @@ public class After_Complete_test extends AppCompatActivity {
 
     private int getCorrectQuestionCount() {
         ArrayList<Integer> id_list = MainQuestionActivity.user_question_id;
-        ArrayList<Integer> user_ans = MainQuestionActivity.user_answers;
+//        ArrayList<Integer> user_ans = MainQuestionActivity.user_answers;
 
         int correct_count = 0;
 
-        ArrayList<Question_Model> final_list = new ArrayList<>();
+        for (int i = 0; i < id_list.size(); i++) {
+
+            Question_Model question_model = Maintain_ArrayList.allQuestions_ArrayList.get(id_list.get(i));
+
+            String user_answer = question_model.getUser_answer();
+            String answer = question_model.getAnswer();
+
+            if(user_answer.trim().equalsIgnoreCase(answer.trim()))
+                correct_count++;
+        }
+        /*ArrayList<Question_Model> final_list = new ArrayList<>();
 
         String answer = "";
         for (int i = 0; i < id_list.size(); i++) {
@@ -198,7 +206,7 @@ public class After_Complete_test extends AppCompatActivity {
 
             if(question_model.getAnswer().trim().equalsIgnoreCase(answer.trim()))
                 correct_count++;
-        }
+        }*/
         return correct_count;
 
     }
