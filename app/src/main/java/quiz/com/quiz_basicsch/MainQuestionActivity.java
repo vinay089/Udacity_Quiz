@@ -150,7 +150,9 @@ public class MainQuestionActivity extends AppCompatActivity {
 
         final int randomno = showRandomInteger(1, 20, new Random());
 
+        Log.d("randomNo", ""+randomno);
         if(user_question_id.contains(randomno-1)){
+
             loadQuestionToShow();
             return;
         }
@@ -220,7 +222,7 @@ public class MainQuestionActivity extends AppCompatActivity {
     @OnClick(R.id.tv_skip_question)
     void onSkipClick(View v){
 
-        skipQuestionOnTomeCompleteOtButton();
+        skipQuestionOnTomeCompleteOtButton((int) timeDuraton);
     }
 
     private static int showRandomInteger(int aStart, int aEnd, Random aRandom){
@@ -286,14 +288,14 @@ public class MainQuestionActivity extends AppCompatActivity {
         }
     };
 
-    private void skipQuestionOnTomeCompleteOtButton(){
+    private void skipQuestionOnTomeCompleteOtButton(int skipped_time){
 
         countDownTimer.cancel();
         int ques = user_question_id.get(user_question_id.size() - 1);
 
         Question_Model question_model = allQuestionList.get(ques);
         question_model.setUser_answer("n u l l");
-        question_model.setTimeTaken(-1);
+        question_model.setTimeTaken(skipped_time);
 
         allQuestionList.set(ques, question_model);
 
@@ -332,8 +334,9 @@ public class MainQuestionActivity extends AppCompatActivity {
 
                 handler.removeCallbacksAndMessages(null);
                 dialog.dismiss();
-                loadQuestionToShow();
+//                loadQuestionToShow();
 
+                skipQuestionOnTomeCompleteOtButton(30);
             }
         });
     }

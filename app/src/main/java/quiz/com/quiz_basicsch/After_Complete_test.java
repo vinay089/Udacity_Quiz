@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -37,6 +38,10 @@ public class After_Complete_test extends AppCompatActivity {
     @BindView(R.id.tv_message)
     TextView Tv_message;
 
+    @BindView(R.id.tv_total_time_taken_by_user)
+    TextView Tv_time_taken;
+
+    int total_time = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +69,7 @@ public class After_Complete_test extends AppCompatActivity {
                         Tv_Correct_Attempts.setText(""+correct_attempts);
                         Tv_wrong_attempts.setText(""+wrong_attempts);
 
+                        Tv_time_taken.setText(""+total_time/60 +":"+total_time%60);
                         switch (correct_attempts){
                             case 0:
                                 Tv_message.setText("You may get better after re-attempt");
@@ -174,6 +180,9 @@ public class After_Complete_test extends AppCompatActivity {
             String user_answer = question_model.getUser_answer();
             String answer = question_model.getAnswer();
 
+            int time_taken = question_model.getTimeTaken();
+            total_time  = total_time + time_taken;
+            Log.d("timeTaken "+time_taken, "totaltime "+total_time);
             if(user_answer.trim().equalsIgnoreCase(answer.trim()))
                 correct_count++;
         }

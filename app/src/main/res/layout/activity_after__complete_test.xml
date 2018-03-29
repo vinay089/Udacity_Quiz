@@ -32,7 +32,8 @@
                 android:padding="7dp"
                 android:text="Attempt Questions:"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                android:textColor="@color/basic_white" />
+                android:textColor="@color/basic_white"
+                android:id="@+id/attempt_quewt_tv"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -44,25 +45,70 @@
                 android:textColor="@color/basic_white"
                 android:layout_alignParentRight="true" />
 
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_below="@id/attempt_quewt_tv"
+                android:background="@drawable/stopwatch"
+                android:backgroundTint="#fff"
+                android:id="@+id/stop_watch_time"
+                android:layout_marginBottom="0dp"
+                android:layout_marginTop="0dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/stop_watch_time"
+                android:layout_below="@id/attempt_quewt_tv"
+                android:layout_marginLeft="7dp"
+                android:text="Time Taken"
+                android:textColor="@color/basic_white"
+                android:textSize="10sp"
+                android:layout_marginBottom="0dp"
+                android:padding="7dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/attempt_quewt_tv"
+                android:layout_marginLeft="7dp"
+                android:text="2min"
+                android:textColor="@color/basic_white"
+                android:textSize="10sp"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="0dp"
+                android:padding="7dp"
+                android:id="@+id/tv_total_time_taken_by_user" />
+
         </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="1dp"
-            android:background="#fff"/>
+            android:background="#fff"
+            android:padding="7dp"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/thumbs_down"
+                android:id="@+id/iv_rghtimage"
+                android:backgroundTint="@color/basic_white"
+                android:layout_marginTop="5dp"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
+                android:layout_marginLeft="7dp"
                 android:layout_alignParentTop="true"
                 android:padding="7dp"
+                android:layout_toRightOf="@+id/iv_rghtimage"
                 android:text="Wrong Attempts:"
                 android:textColor="@color/basic_white"
                 android:textSize="10sp" />
@@ -91,13 +137,23 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/thumbs_up"
+                android:id="@+id/iv_downimage"
+                android:backgroundTint="@color/basic_white"
+                android:layout_marginTop="5dp"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="7dp"
+                android:layout_marginLeft="7dp"
                 android:text="Rights Attempts:"
                 android:textSize="10sp"
-                android:textColor="@color/basic_white" />
+                android:textColor="@color/basic_white"
+                android:layout_toRightOf="@+id/iv_downimage"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -184,6 +240,7 @@
         android:fontFamily="serif"
         android:layout_marginBottom="25dp"
         android:gravity="center"
+        android:text="Excellent"
         android:layout_centerHorizontal="true"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:textColor="@color/basic_white"
